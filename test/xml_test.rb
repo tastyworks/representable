@@ -81,12 +81,12 @@ class XmlTest < MiniTest::Spec
 
     describe "#to_node" do
       it "returns Nokogiri node" do
-        node = Band.new("Rise Against").to_node
+        node = Band.new("Rise Against").to_node({doc: Nokogiri::XML::Document.new})
         assert_kind_of Nokogiri::XML::Element, node
       end
 
       it "wraps with infered class name per default" do
-        node = Band.new("Rise Against").to_node
+        node = Band.new("Rise Against").to_node({doc: Nokogiri::XML::Document.new})
         assert_xml_equal "<band><name>Rise Against</name></band>", node.to_s
       end
 
@@ -97,7 +97,7 @@ class XmlTest < MiniTest::Spec
         end
 
         klass.representation_wrap = :group
-        assert_xml_equal "<group><name>Rise Against</name></group>", klass.new("Rise Against").to_node.to_s
+        assert_xml_equal "<group><name>Rise Against</name></group>", klass.new("Rise Against").to_node({doc: Nokogiri::XML::Document.new}).to_s
       end
     end
 

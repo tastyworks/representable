@@ -59,7 +59,11 @@ class AsXmlTest < MiniTest::Spec
   end
 
   it do
-    skip
-    representer.new(Album.new(Band.new("Offspring"))).to_xml.must_equal ""
+    # skip
+    representer.new(Album.new(Band.new("Offspring"))).to_xml.must_equal_xml "<album>
+  <combo>
+    <name>Offspring</name>
+  </combo>
+</album>"
   end
 end
