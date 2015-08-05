@@ -8,6 +8,8 @@ rescue LoadError => _
   abort "Missing dependency 'nokogiri' for Representable::XML. See dependencies section in README.md for details."
 end
 
+# TODO: the wrap node should be created in the binding and not the surrounding representer. that way, we can use :wrap, :as, etc.
+
 module Representable
   module XML
     def self.included(base)
