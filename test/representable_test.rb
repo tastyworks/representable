@@ -193,13 +193,22 @@ class RepresentableTest < MiniTest::Spec
     end
   end
 
+  class Hometown
+    attr_accessor :name
+  end
+
+  module HometownRepresentable
+    include Representable::JSON
+    property :name
+  end
 
   # DISCUSS: i don't like the JSON requirement here, what about some generic test module?
   class PopBand
     include Representable::JSON
     property :name
     property :groupies
-    attr_accessor :name, :groupies
+    property :hometown, class: Hometown, extend: HometownRepresentable
+    attr_accessor :name, :groupies, :hometown
   end
 
   describe "#update_properties_from" do
@@ -248,6 +257,7 @@ class RepresentableTest < MiniTest::Spec
       end
       @band.from_hash({})
     end
+
 
     # FIXME: do we need this test with XML _and_ JSON?
     it "ignores (no-default) properties not present in the incoming document" do
