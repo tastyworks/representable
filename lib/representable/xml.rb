@@ -42,10 +42,13 @@ module Representable
 
     # Returns a Nokogiri::XML object representing this object.
     def to_node(options)
+      puts "@@@@@ #{representation_wrap(options)}  #{options.inspect}"
+      # if :as is set on the binding representing this nested object, :wrap should already be set to it.
+      root_tag = options[:wrap] || representation_wrap(options) # || :as
 
-      root_tag = options[:wrap] ||  representation_wrap(options)
-
-      create_representation_with(Nokogiri::XML::Node.new(root_tag.to_s, options[:doc]), options, Binding)
+      options[:root_wrap] = root_tag
+      # create_representation_with(Nokogiri::XML::Node.new(root_tag.to_s, options[:doc]), options, Binding)
+      create_representation_with(options[:doc], options, Binding)
     end
 
     def to_xml(options={})

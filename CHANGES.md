@@ -1,5 +1,8 @@
 # 2.3.0
 
+## TODO
+deprecate xml :wrap and make it :container
+
 * Remove dependency to Nokogiri and Multi_JSON. You have to add what you need to your `Gemfile`/`gemspec` now.
 * `to_*`/`from_*` with options do no longer change the hash but work on copies.
 * `to_*`/`from_*` now respect `wrap: false`. This will suppress the wrapping on the first level.
