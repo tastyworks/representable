@@ -44,6 +44,7 @@ module Representable
     input.send(binding.serialize_method, options_for_nested)
   end
 
+  # DISCUSS: should Binding#write receive options?
   WriteFragment = ->(input, options) { options[:binding].write(options[:doc], input, options[:as]) }
 
   As = ->(input, options) { options[:binding].evaluate_option(:as, input, options) }

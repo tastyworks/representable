@@ -1,3 +1,3 @@
 module Representable
-  VERSION = "2.4.0.rc4"
+  VERSION = "3.0.0.pre1"
 end

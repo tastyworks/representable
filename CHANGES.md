@@ -3,6 +3,7 @@
 * Dropping Ruby 1.9 support.
 * Removed deprecations from 2.4.
 * Removed `:parse_strategy` in favor of `:populator`.
+* Removed `:binding` in favor of your own pipeline.
 
 # 2.4.0
 

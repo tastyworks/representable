@@ -7,7 +7,6 @@ module Representable
     end
 
     def self.build(definition)
-      return definition.create_binding if definition[:binding]
       build_for(definition)
     end
 
