@@ -1,3 +1,9 @@
+# 3.0.0
+
+* Dropping Ruby 1.9 support.
+* Removed deprecations from 2.4.
+* Removed `:parse_strategy` in favor of `:populator`.
+
 # 2.4.0
 
 Full migration guide here: http://trailblazer.to/gems/representable/upgrading-guide.html#to-24
