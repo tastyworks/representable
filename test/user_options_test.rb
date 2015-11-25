@@ -4,7 +4,7 @@ class UserOptionsTest < Minitest::Spec
   Song = Struct.new(:title)
 
   representer! do
-    property :title, if: ->(options) { options[:user_options][:visible] }
+    property :title, if: ->(user_options:{}, **) { user_options[:visible] }
   end
 
   it { Song.new("Run With It").extend(representer).to_hash.must_equal({}) }
