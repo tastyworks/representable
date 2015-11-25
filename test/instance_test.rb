@@ -10,7 +10,7 @@ class InstanceTest < BaseTest
 
   describe "lambda { fragment } (new way of class: lambda { nil })" do
     representer! do
-      property :title, instance: ->(fragment:nil, **) { fragment }
+      property :title, instance: ->(fragment:nil, **o) { fragment }
     end
 
     it "skips creating new instance" do
