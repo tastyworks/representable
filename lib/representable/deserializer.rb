@@ -8,7 +8,7 @@ module Representable
 
   AssignFragment = ->(input, options) { options[:fragment] = input }
 
-  ReadFragment = ->(input, options) { options[:binding].read(input, options[:as]) }
+  ReadFragment = ->(input, binding:, as:, **) { binding.read(input, as) }
   Reader = ->(input, options) { options[:binding].evaluate_option(:reader, input, options) }
 
   StopOnNotFound = ->(input, options) do
@@ -23,8 +23,8 @@ module Representable
     input.nil? ? (SetValue.(input, options); Pipeline::Stop) : input
   end
 
-  Default = ->(input, options) do
-    Binding::FragmentNotFound == input ? options[:binding][:default] : input
+  Default = ->(input, binding:, **) do
+    Binding::FragmentNotFound == input ? binding[:default] : input
   end
 
   SkipParse = ->(input, options) do
@@ -74,11 +74,9 @@ module Representable
   Decorate     = Function::Decorate.new
   Deserializer = ->(input, options) { options[:binding].evaluate_option(:deserialize, input, options) }
 
-  Deserialize  =  ->(input, args) do
-    binding, fragment, options = args[:binding], args[:fragment], args[:options]
-
+  Deserialize  =  ->(input, binding:, fragment:, options:, **) do
     # user_options:
-    child_options = OptionsForNested.(options, args[:binding])
+    child_options = OptionsForNested.(options, binding)
 
     input.send(binding.deserialize_method, fragment, child_options)
   end
@@ -95,14 +93,14 @@ module Representable
 
   If = ->(input, options) { options[:binding].evaluate_option(:if, nil, options) ? input : Pipeline::Stop }
 
-  StopOnExcluded = ->(input, options) do
-    return input unless private = options[:options]
-    return input unless props = (options[:options][:exclude] || options[:options][:include])
+  StopOnExcluded = ->(input, options:, binding: ,**) do
+    return input unless private = options
+    return input unless props = (options[:exclude] || options[:include])
 
-    res = props.include?(options[:binding].name.to_sym) # false with include: Stop. false with exclude: go!
+    res = props.include?(binding.name.to_sym) # false with include: Stop. false with exclude: go!
 
-    return input if options[:options][:include]&&res
-    return input if options[:options][:exclude]&&!res
+    return input if options[:include]&&res
+    return input if options[:exclude]&&!res
     Pipeline::Stop
   end
 end

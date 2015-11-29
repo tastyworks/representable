@@ -11,14 +11,12 @@ module Representable
   end
 
   # TODO: evaluate this, if we need this.
-  RenderDefault = ->(input, options) do
-    binding = options[:binding]
-
+  RenderDefault = ->(input, binding:, **) do
     binding.skipable_empty_value?(input) ? binding[:default] : input
   end
 
-  StopOnSkipable = ->(input, options) do
-    options[:binding].send(:skipable_empty_value?, input) ? Pipeline::Stop : input
+  StopOnSkipable = ->(input, binding:, **) do
+    binding.send(:skipable_empty_value?, input) ? Pipeline::Stop : input
   end
 
   RenderFilter = ->(input, options) do
@@ -35,9 +33,8 @@ module Representable
     options[:binding].evaluate_option(:serialize, input, options)
   end
 
-  Serialize = ->(input, options) do
+  Serialize = ->(input, binding:, options:, **) do
     return if input.nil? # DISCUSS: how can we prevent that?
-    binding, options = options[:binding], options[:options] # FIXME: rename to :local_options.
 
     options_for_nested = OptionsForNested.(options, binding)
 
@@ -45,7 +42,7 @@ module Representable
   end
 
   # DISCUSS: should Binding#write receive options?
-  WriteFragment = ->(input, options) { options[:binding].write(options[:doc], input, options[:as]) }
+  WriteFragment = ->(input, binding:, doc:, as:, **) { binding.write(doc, input, as) }
 
   As = ->(input, options) { options[:binding].evaluate_option(:as, input, options) }
 
