@@ -5,12 +5,12 @@ $:.unshift lib unless $:.include?(lib)
 require 'representable/version'
 
 Gem::Specification.new do |s|
-  s.name        = "representable"
+  s.name        = "tastyworks-representable"
   s.version     = Representable::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["Nick Sutterer"]
-  s.email       = ["apotonick@gmail.com"]
-  s.homepage    = "https://github.com/apotonick/representable/"
+  s.authors     = ["Nick Sutterer", "tastyworks"]
+  s.email       = ["apotonick@gmail.com", "developers@tastyworks.com"]
+  s.homepage    = "https://github.com/tastyworks/representable"
   s.summary     = %q{Renders and parses JSON/XML/YAML documents from and to Ruby objects. Includes plain properties, collections, nesting, coercion and more.}
   s.description = s.summary
 
@@ -30,4 +30,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "json", '>= 1.7.7'
 
   s.add_development_dependency "ruby-prof"
+
+  s.add_development_dependency 'package_cloud', '0.2.29'
 end
