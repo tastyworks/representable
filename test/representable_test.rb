@@ -36,7 +36,7 @@ class RepresentableTest < MiniTest::Spec
         end.new
         vd.name        = "Vention Dention"
         vd.street_cred = 1
-        assert_json "{\"name\":\"Vention Dention\",\"street_cred\":1}", vd.to_json
+        assert_json "{\"name\":\"Vention Dention\",\"street-cred\":1}", vd.to_json
       end
 
       #it "allows including the concrete representer module only" do

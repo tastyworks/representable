@@ -44,27 +44,27 @@ class HashWithTypedPropertyTest < MiniTest::Spec
 
   describe "#to_hash" do
     it "renders embedded typed property" do
-      album.extend(representer).to_hash.must_equal("best_song" => {"name" => "Liar"})
+      album.extend(representer).to_hash.must_equal("best-song" => {"name" => "Liar"})
     end
   end
 
   describe "#from_hash" do
     it "parses embedded typed property" do
-      album.extend(representer).from_hash("best_song" => {"name" => "Go With Me"})
+      album.extend(representer).from_hash("best-song" => {"name" => "Go With Me"})
       album.best_song.name.must_equal "Go With Me"
     end
 
     # nested nil removes nested object.
     it do
       album = Album.new(Song.new("Pre-medicated Murder"))
-      album.extend(representer).from_hash("best_song" => nil)
+      album.extend(representer).from_hash("best-song" => nil)
       album.best_song.must_equal nil
     end
 
     # nested blank hash creates blank object when not populated.
     it do
       album = Album.new#(Song.new("Pre-medicated Murder"))
-      album.extend(representer).from_hash("best_song" => {})
+      album.extend(representer).from_hash("best-song" => {})
       album.best_song.name.must_equal nil
     end
 

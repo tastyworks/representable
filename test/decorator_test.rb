@@ -23,7 +23,7 @@ class DecoratorTest < MiniTest::Spec
       end.new(Album.new([song], "Stand Up"))
     end
 
-    it { inherited_decorator.to_hash.must_equal({"songs"=>[{"name"=>"Mama, I'm Coming Home"}], "best_song"=>"Stand Up"}) }
+    it { inherited_decorator.to_hash.must_equal({"songs"=>[{"name"=>"Mama, I'm Coming Home"}], "best-song"=>"Stand Up"}) }
   end
 
   let (:decorator) { AlbumRepresentation.new(album) }

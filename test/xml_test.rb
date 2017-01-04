@@ -170,7 +170,7 @@ class XmlTest < MiniTest::Spec
         @album = Album.new
         @album.extend(AlbumRepresenter)
 
-        @album.from_xml("<album><best_song><name>Mr. Charisma</name></best_song><song><name>I Hate My Brain</name></song><song><name>Mr. Charisma</name></song></album>")
+        @album.from_xml("<album><best-song><name>Mr. Charisma</name></best-song><song><name>I Hate My Brain</name></song><song><name>Mr. Charisma</name></song></album>")
         assert_equal "Mr. Charisma", @album.best_song.name
       end
     end

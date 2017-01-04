@@ -24,14 +24,14 @@ class YamlTest < MiniTest::Spec
       it "renders plain property" do
         album.extend(yaml).to_yaml.must_equal(
 "---
-best_song: Liar
+best-song: Liar
 ")
       end
 
       it "always renders values into strings" do
         Album.new.tap { |a| a.best_song = 8675309 }.extend(yaml).to_yaml.must_equal(
 "---
-best_song: 8675309
+best-song: 8675309
 "
 )
       end
@@ -42,7 +42,7 @@ best_song: 8675309
       it "parses plain property" do
         album.extend(yaml).from_yaml(
 "---
-best_song: This Song Is Recycled
+best-song: This Song Is Recycled
 ").best_song.must_equal "This Song Is Recycled"
       end
     end
@@ -63,7 +63,7 @@ best_song: This Song Is Recycled
       describe "#to_yaml" do
         it "renders embedded typed property" do
           album.extend(yaml_album).to_yaml.must_equal "---
-best_song:
+best-song:
   name: Liar
 "
         end
@@ -72,7 +72,7 @@ best_song:
       describe "#from_yaml" do
         it "parses embedded typed property" do
           album.extend(yaml_album).from_yaml("---
-best_song:
+best-song:
   name: Go With Me
 ").must_equal Album.new(nil,Song.new("Go With Me"))
         end
