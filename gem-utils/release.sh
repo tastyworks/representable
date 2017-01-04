@@ -87,16 +87,8 @@ echo_info "📥  Ensure local code is up to date"
 git pull
 echo
 
-echo_info "🔎  Ensure code conforms"
-bundle exec rubocop -c .rubocop.yml
-echo
-
 echo_info "👁  Ensure code is correct"
-bundle exec rspec
-echo
-
-echo_info "🚸  Bumping $VERSION_TYPE version, creating a tag, and push to github"
-bundle exec gem bump --tag --version $VERSION_TYPE
+bundle exec rake
 echo
 
 echo_info "👷  Building gem package"
