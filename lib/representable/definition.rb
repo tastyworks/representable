@@ -17,7 +17,7 @@ module Representable
       # defaults:
       options[:parse_filter]  = Pipeline[*options[:parse_filter]]
       options[:render_filter] = Pipeline[*options[:render_filter]]
-      options[:as]          ||= @name
+      options[:as]          ||= sym.to_s.tr('_', '-')
 
       setup!(options, &block)
     end
