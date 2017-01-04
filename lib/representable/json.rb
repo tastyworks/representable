@@ -28,6 +28,17 @@ module Representable
       end
     end
 
+    def to_hash(*args)
+      hash = super(*args)
+      hash.each do |key, value|
+        case value
+        when BigDecimal
+          hash[key] = Tastyworks::Api::Json::BigDecimalTranslator.value_to_json(value)
+        when DateTime
+          hash[key] = Tastyworks::Api::Json::DateTimeTranslator.value_to_json(value)
+        end
+      end
+    end
 
     # Parses the body as JSON and delegates to #from_hash.
     def from_json(data, *args)
