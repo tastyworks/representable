@@ -1,5 +1,6 @@
 require 'representable/hash'
 require 'representable/json/collection'
+require 'bigdecimal'
 
 begin
   require 'multi_json'
@@ -32,9 +33,9 @@ module Representable
       hash = super(*args)
       hash.each do |key, value|
         case value
-        when BigDecimal
+        when ::BigDecimal
           hash[key] = Tastyworks::Api::Json::BigDecimalTranslator.value_to_json(value)
-        when DateTime
+        when ::DateTime
           hash[key] = Tastyworks::Api::Json::DateTimeTranslator.value_to_json(value)
         end
       end
